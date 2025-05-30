@@ -73,63 +73,53 @@ const initWebSocket = () => {
   }
 }
 
+const audioStream = ref<MediaStream | null>(null)
+
 // Initialize audio recording
 const initRecording = async () => {
-    try {
-        // Request screen capture
-        // const screenStream = await navigator.mediaDevices.getDisplayMedia({
-        //     video: false,
-        //     audio: true
-        // });
+  try {
+    const micStream = await navigator.mediaDevices.getUserMedia({
+      audio: {
+        echoCancellation: true,
+        noiseSuppression: true,
+        sampleRate: 44100,
+      },
+    })
 
-        // Request microphone audio
-        const micStream = await navigator.mediaDevices.getUserMedia({
-            audio: {
-                echoCancellation: true,
-                noiseSuppression: true,
-                sampleRate: 44100
-            }
-        });
+    audioStream.value = micStream
 
-        // Combine the audio tracks from both streams
-        const combinedStream = new MediaStream([
-            // ...screenStream.getAudioTracks(),
-            ...micStream.getAudioTracks(),
-            // ...screenStream.getVideoTracks()
-        ]);
-
-        // Create a new MediaRecorder instance
-        mediaRecorder.value = new MediaRecorder(combinedStream);
-
-        mediaRecorder.value.ondataavailable = (event) => {
-            if (event.data.size > 0 && ws.value?.readyState === WebSocket.OPEN) {
-                ws.value.send(event.data);
-            }
-        };
-
-        mediaRecorder.value.onstop = () => {
-            combinedStream.getTracks().forEach(track => track.stop());
-        };
-
-    } catch (error) {
-        console.error('Error capturing audio/video:', error);
+    const recorder = new MediaRecorder(micStream)
+    recorder.ondataavailable = (event) => {
+      if (event.data.size > 0 && ws.value?.readyState === WebSocket.OPEN) {
+        ws.value.send(event.data)
+      }
     }
-};
 
+    recorder.onstop = () => {
+      micStream.getTracks().forEach(track => track.stop())
+    }
 
-// Toggle recording
-const toggleRecording = () => {
-  if (!mediaRecorder.value) return
-
-  if (!isRecording.value) {
-    mediaRecorder.value.start(250) // Send data every 250ms
-    isRecording.value = true
-  } else {
-    mediaRecorder.value.stop()
-    isRecording.value = false
+    mediaRecorder.value = recorder
+  } catch (error) {
+    console.error('Error capturing audio:', error)
   }
 }
 
+
+
+// Toggle recording
+const toggleRecording = async () => {
+  if (!isRecording.value) {
+    await initRecording() // <- Re-initialize on each start
+    mediaRecorder.value?.start(250)
+    isRecording.value = true
+  } else {
+    mediaRecorder.value?.stop()
+    isRecording.value = false
+    mediaRecorder.value = null
+    audioStream.value = null
+  }
+}
 // Initialize on component mount
 onMounted(() => {
   initWebSocket()
