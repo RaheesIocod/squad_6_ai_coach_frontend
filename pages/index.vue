@@ -36,6 +36,7 @@ const transcription = ref('')
 const transcriptions = ref<string[]>([]) // Add this new ref for storing all transcriptions
 const ws = ref<WebSocket | null>(null)
 const mediaRecorder = ref<MediaRecorder | null>(null)
+const config = useRuntimeConfig()
 
 const connectionStatus = computed(() => 
   isConnected.value ? 'Connected' : 'Disconnected'
@@ -43,7 +44,7 @@ const connectionStatus = computed(() =>
 
 // Initialize WebSocket connection
 const initWebSocket = () => {
-  ws.value = new WebSocket('ws://localhost:3003')
+  ws.value = new WebSocket(config.public.websocket)  
 
   ws.value.onopen = () => {
     isConnected.value = true

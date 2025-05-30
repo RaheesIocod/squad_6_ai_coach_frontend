@@ -16,7 +16,8 @@ export default defineNuxtConfig({
       pineconeEnvironment: process.env.PINECONE_ENVIRONMENT,
       pineconeIndex: process.env.PINECONE_INDEX,
       openaiApiKey: process.env.OPENAI_API_KEY,
-      pineconeHost: process.env.PINECONE_HOST
+      pineconeHost: process.env.PINECONE_HOST,
+      websocket: process.env.WEBSOCKET_URL
     }
   },
   shadcn: {
