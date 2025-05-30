@@ -17,7 +17,9 @@ export default defineNuxtConfig({
       pineconeIndex: process.env.PINECONE_INDEX,
       openaiApiKey: process.env.OPENAI_API_KEY,
       pineconeHost: process.env.PINECONE_HOST,
-      websocket: process.env.WEBSOCKET_URL
+      websocket: process.env.WEBSOCKET_URL,
+      apiBaseUrl: process.env.API_BASE_URL || 'http://iocod.hostcarts.qa/api'
+      
     }
   },
   shadcn: {
@@ -29,6 +31,6 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
     server: {
        allowedHosts:['iocod.hostcarts.qa']
-    }
+    },
   }
 })
