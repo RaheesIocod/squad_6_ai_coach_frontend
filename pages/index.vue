@@ -1,8 +1,7 @@
-<!-- <script lang="ts">
-export const description = 'A login page with a muted background color.'
-</script> -->
-
 <script setup lang="ts">
+definePageMeta({
+  layout: 'auth',
+})
 import { GalleryVerticalEnd } from 'lucide-vue-next'
 import LoginForm from '@/components/LoginForm.vue'
 </script>
