@@ -1,11 +1,12 @@
-import { defineEventHandler, readBody } from 'h3'
-import { OpenAI } from 'openai'
+// import { defineEventHandler, readBody } from 'h3'
+// import { OpenAI } from 'openai'
 // import { getContextFromVectorDB } from '~/server/lib/vector-db'
 const config = useRuntimeConfig()
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! })
+// const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! })
 
 export default defineEventHandler(async (event) => {
+  return
   const body = await readBody(event)
   const question = body.query
 

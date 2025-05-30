@@ -24,7 +24,6 @@
     "langchain": "^0.3.27",
     "lucide-vue-next": "^0.511.0",
     "nuxt": "^3.17.4",
-    "openai": "^5.0.0",
     "pdfjs-dist": "^5.2.133",
     "reka-ui": "^2.3.0",
     "shadcn-nuxt": "2.2.0",

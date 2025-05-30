@@ -12,14 +12,14 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       deepgramApiKey: process.env.DEEPGRAM_API_KEY,
-      pineconeApiKey: process.env.PINECONE_API_KEY,
-      pineconeEnvironment: process.env.PINECONE_ENVIRONMENT,
-      pineconeIndex: process.env.PINECONE_INDEX,
-      openaiApiKey: process.env.OPENAI_API_KEY,
-      pineconeHost: process.env.PINECONE_HOST,
-      websocket: process.env.WEBSOCKET_URL,
+      // pineconeApiKey: process.env.PINECONE_API_KEY,
+      // pineconeEnvironment: process.env.PINECONE_ENVIRONMENT,
+      // pineconeIndex: process.env.PINECONE_INDEX,
+      // openaiApiKey: process.env.OPENAI_API_KEY,
+      // pineconeHost: process.env.PINECONE_HOST,
+      // websocket: process.env.WEBSOCKET_URL,
       apiBaseUrl: process.env.API_BASE_URL || 'http://iocod.hostcarts.qa/api'
-      
+
     }
   },
   shadcn: {
@@ -30,7 +30,7 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
     server: {
-       allowedHosts:['iocod.hostcarts.qa']
+      allowedHosts: ['iocod.hostcarts.qa']
     },
   }
 })
