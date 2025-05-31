@@ -2,6 +2,7 @@
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
+  ssr: false,
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
   modules: [
@@ -9,6 +10,14 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     'shadcn-nuxt'
   ],
+  icon: {
+    customCollections: [
+      {
+        prefix: 'my-icon',
+        dir: './assets/my-icons'
+      },
+    ],
+  },
   runtimeConfig: {
     public: {
       deepgramApiKey: process.env.DEEPGRAM_API_KEY,
@@ -17,7 +26,7 @@ export default defineNuxtConfig({
       // pineconeIndex: process.env.PINECONE_INDEX,
       // openaiApiKey: process.env.OPENAI_API_KEY,
       // pineconeHost: process.env.PINECONE_HOST,
-      // websocket: process.env.WEBSOCKET_URL,
+      websocket: process.env.WEBSOCKET_URL,
       apiBaseUrl: process.env.API_BASE_URL || 'http://iocod.hostcarts.qa/api'
 
     }

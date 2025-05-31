@@ -27,7 +27,7 @@ const { isFieldDirty, handleSubmit } = useForm({
     // email: 'agent@example.com',
     email: ' ',
     // password: 'password',
-    password: ' ',
+    password: '',
   },
 })
 import { cn } from '@/lib/utils'
@@ -78,7 +78,7 @@ const onSubmit = handleSubmit(async (values) => {
     // set user data in local storage
     localStorage.setItem('user', JSON.stringify(response.user))
     // Redirect to home page
-    useRouter().push('app/call')
+    useRouter().push('app/home')
   } catch (error) {
     console.error('Login error:', error)
     // You might want to show an error message to the user here
@@ -121,29 +121,33 @@ const onSubmit = handleSubmit(async (values) => {
                 <FormField v-slot="{ componentField }" name="email" :validate-on-blur="!isFieldDirty">
                   <FormItem>
                     <FormLabel class="font-normal">Email Address</FormLabel>
-                     <FormControl>
-                      <Input id="email" v-bind="componentField"  class="placeholder:text-sm h-10" type="email" placeholder="m@example.com"  />
-                     </FormControl>
-                     <FormMessage  class="text-xs"/>
+                    <FormControl>
+                      <Input id="email" v-bind="componentField" class="placeholder:text-sm h-10" type="email"
+                        placeholder="m@example.com" />
+                    </FormControl>
+                    <FormMessage class="text-xs" />
                   </FormItem>
                 </FormField>
               </div>
-                <div class="grid gap-3">
+              <div class="grid gap-3">
                 <FormField v-slot="{ componentField }" name="password" :validate-on-blur="!isFieldDirty">
                   <FormItem>
-                  <FormLabel class="font-normal">Password</FormLabel>
-                  <FormControl>
-                    <div class="relative">
-                    <Input id="password" v-bind="componentField" class="placeholder:text-sm h-10" :type="type" placeholder="Enter your password" />
-                    <Icon @click="setType" :name="getType" class="absolute top-1/2 -translate-y-1/2 right-3 cursor-pointer" />
-                    </div>
-                  </FormControl>
-                  <FormMessage  class="text-xs"/>
+                    <FormLabel class="font-normal">Password</FormLabel>
+                    <FormControl>
+                      <div class="relative">
+                        <Input id="password" v-bind="componentField" class="placeholder:text-sm h-10" :type="type"
+                          placeholder="Enter your password" />
+                        <Icon @click="setType" :name="getType"
+                          class="absolute top-1/2 -translate-y-1/2 right-3 cursor-pointer" />
+                      </div>
+                    </FormControl>
+                    <FormMessage class="text-xs" />
                   </FormItem>
                 </FormField>
-                </div>
-              <Button :disabled="loading"  type="submit" class="w-full h-10 bg-gradient-to-r from-blue-600 to-purple-600 ">
-                Login 
+              </div>
+              <Button :disabled="loading" type="submit"
+                class="w-full h-10 bg-gradient-to-r from-blue-600 to-purple-600 ">
+                Login
                 <Icon v-if="loading" name="lucid:loader" class="animate-spin"></Icon>
               </Button>
             </div>
@@ -159,4 +163,3 @@ const onSubmit = handleSubmit(async (values) => {
     </Card>
   </div>
 </template>
-

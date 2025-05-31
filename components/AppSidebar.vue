@@ -10,8 +10,9 @@ import {
   GalleryVerticalEnd,
   Map,
   PieChart,
-  Settings2,
-  SquareTerminal,
+  SettingsIcon,
+  FileText,
+  LayoutDashboard
 } from 'lucide-vue-next'
 import NavMain from '@/components/NavMain.vue'
 import NavProjects from '@/components/NavProjects.vue'
@@ -43,77 +44,41 @@ const data = {
       logo: GalleryVerticalEnd,
       plan: 'Smart AI Coach',
     },
-   
+
   ],
   navMain: [
     {
-      title: 'Dashboard',
-      url: '/dashboard',
-      icon: Frame,
+      title: 'Home',
+      url: '/app/home',
+      icon: LayoutDashboard,
     },
     {
-      title: 'Models',
-      url: '#',
-      icon: Bot,
-      items: [
-        {
-          title: 'Genesis',
-          url: '#',
-        },
-        {
-          title: 'Explorer',
-          url: '#',
-        },
-        {
-          title: 'Quantum',
-          url: '#',
-        },
-      ],
+      title: 'Call Report',
+      url: '/app/call-report',
+      icon: FileText,
     },
-    {
-      title: 'Documentation',
-      url: '#',
-      icon: BookOpen,
-      items: [
-        {
-          title: 'Introduction',
-          url: '#',
-        },
-        {
-          title: 'Get Started',
-          url: '#',
-        },
-        {
-          title: 'Tutorials',
-          url: '#',
-        },
-        {
-          title: 'Changelog',
-          url: '#',
-        },
-      ],
-    },
+
     {
       title: 'Settings',
       url: '#',
-      icon: Settings2,
+      icon: SettingsIcon,
       items: [
         {
-          title: 'General',
-          url: '#',
+          title: 'Profile',
+          url: '/app/profile',
         },
         {
-          title: 'Team',
-          url: '#',
+          title: 'Knowledge Base',
+          url: '/app/knowledge-base',
         },
-        {
-          title: 'Billing',
-          url: '#',
-        },
-        {
-          title: 'Limits',
-          url: '#',
-        },
+        // {
+        //   title: 'Billing',
+        //   url: '#',
+        // },
+        // {
+        //   title: 'Limits',
+        //   url: '#',
+        // },
       ],
     },
   ],
@@ -139,7 +104,7 @@ const data = {
 
 <template>
   <Sidebar v-bind="props">
-    <SidebarHeader>
+    <SidebarHeader class="border-b  py-[14.5px]">
       <TeamSwitcher :teams="data.teams" />
     </SidebarHeader>
     <SidebarContent>
