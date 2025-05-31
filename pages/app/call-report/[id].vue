@@ -103,7 +103,7 @@ async function exportReport() {
                         <div class="flex justify-between text-sm">
                             <span class="text-gray-600">Objection Handling Efficiency</span>
                             <span class="text-gray-900">{{ responseData?.data?.metrics?.objection_handling_efficiency
-                            }}%</span>
+                                }}%</span>
                         </div>
                         <div class="h-2 bg-gray-100 rounded-full">
                             <div class="h-full bg-purple-600 rounded-full"
@@ -116,7 +116,7 @@ async function exportReport() {
                         <div class="flex justify-between text-sm">
                             <span class="text-gray-600">Conversion Probability</span>
                             <span class="text-gray-900">{{ responseData?.data?.metrics?.conversion_probability
-                            }}%</span>
+                                }}%</span>
                         </div>
                         <div class="h-2 bg-gray-100 rounded-full">
                             <div class="h-full bg-blue-600 rounded-full"
@@ -164,10 +164,21 @@ async function exportReport() {
                         </li>
                     </ul>
                 </div>
+
             </div>
         </div>
+        <div class="bg-white rounded-xl shadow-sm p-6 mt-3">
+            <h2 class="text-xl font-semibold text-orange-600 mb-4">Areas of improvements</h2>
+            <ul class="space-y-3">
+                <li v-for="(improvement, index) in responseData?.data?.analysis?.areas_of_improvement" :key="index"
+                    class="flex items-start gap-2">
+                    <div class="w-2 h-2 mt-2 rounded-full bg-orange-500"></div>
+                    <span class="text-gray-700">{{ improvement }}</span>
+                </li>
+            </ul>
+        </div>
         <div class="border p-5 rounded-lg mt-3">
-            <h2 class="text-xl font-semibold mb-4">Summary</h2>
+            <h2 class="text-xl font-semibold mb-4 text-green-600">Summary</h2>
             {{ responseData?.data?.response?.summary_response }}
         </div>
     </div>
