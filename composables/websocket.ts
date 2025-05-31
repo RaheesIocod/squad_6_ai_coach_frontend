@@ -5,7 +5,7 @@ export const useWebSocket = () => {
 
   const connect = () => {
     socket.value = new WebSocket('ws://localhost:8000/ws')
-    
+
     socket.value.onopen = () => {
       isConnected.value = true
       console.log('WebSocket connected')

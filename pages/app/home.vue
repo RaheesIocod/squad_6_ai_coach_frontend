@@ -1,5 +1,13 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+
+import { useTemplateRef } from 'vue'
+
+const el = useTemplateRef<HTMLElement>('el')
+
+
+
+
 import { useStorage } from '@vueuse/core'
 const route = useRoute()
 const isConnected = ref(false)
@@ -100,11 +108,32 @@ const initRecording = async () => {
 
 const state = useStorage<{ data: any[] }>('call-info-state', { data: [] })
 
-
+const cookie = useCookie('token')
+const token = cookie.value
 function GoToCallInfo() {
+
   // Navigate to the call info page
-  state.value.data = labels.value
-  navigateTo({ path: 'call-info' })
+  // state.value.data = labels.value
+  // navigateTo({ path: 'call-info' })
+  $fetch(`${config.public.apiBaseUrl}/responses`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: {
+      response: labels.value,
+    },
+  })
+    .then((response) => {
+      navigateTo({ path: `/app/call-report/${response?.data?.id}` })
+
+      // Optionally, navigate to the call info page
+      // navigateTo({ path: '/app/call-info' })
+    })
+    .catch((error) => {
+      console.error('Error saving call info:', error)
+    })
 }
 
 
@@ -170,10 +199,13 @@ const userDetails = computed(() => {
     </div>
   </div> -->
 
-  <div>
-
-    <div>
+  <div class="relative">
+    <div v-if="isRecording && transcription"
+      class="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-[#21222378] text-white px-6 py-3 rounded-lg max-w-2xl w-full text-center transition-opacity duration-300">
       {{ transcription }}
+    </div>
+    <div>
+
       <div class="text-[24px] font-bold">
         Welcome Back, {{ userDetails.name }}👋
       </div>
@@ -191,7 +223,7 @@ const userDetails = computed(() => {
         <span>{{ connectionStatus }}</span>
       </div> -->
 
-        <div class="bg-white rounded-lg p-6 h-[70ch]">
+        <div class="bg-white rounded-lg p-6 h-[70ch] overflow-y-auto">
           <!-- Controls -->
 
           <div class="flex gap-4 justify-between">
@@ -237,7 +269,7 @@ const userDetails = computed(() => {
       <!-- {{ labels }} -->
       <!-- Labels column -->
       <div class="flex flex-col gap-4 bg-slate-50 p-6 rounded-lg">
-        <div class="bg-white rounded-lg p-6 h-full overflow-y-auto">
+        <div class="bg-white rounded-lg p-6 h-full overflow-y-auto max-h-[70vh]">
           <div class=" mb-4">
             <div class="flex items-center gap-2">
               <Icon name="my-icon:ai" size="24"></Icon>

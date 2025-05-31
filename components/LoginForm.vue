@@ -108,9 +108,9 @@ const onSubmit = handleSubmit(async (values) => {
         <CardTitle class="text-xl">
           Welcome back
         </CardTitle>
-        <CardDescription>
+        <!-- <CardDescription>
           Login with your Apple or Google account
-        </CardDescription>
+        </CardDescription> -->
       </CardHeader>
       <CardContent>
         <form @submit="onSubmit">
