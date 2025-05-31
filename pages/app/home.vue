@@ -214,7 +214,7 @@ const userDetails = computed(() => {
       </div>
 
     </div>
-    <div class="grid grid-cols-2 gap-6 ">
+    <div class="grid grid-col-1 md:grid-cols-2 gap-6 ">
       <!-- {{ transcriptions }} -->
       <div class="flex flex-col gap-4 bg-slate-50 p-6 rounded-lg">
         <!-- Status indicator -->
@@ -227,10 +227,10 @@ const userDetails = computed(() => {
           <!-- Controls -->
 
           <div class="flex gap-4 justify-between">
-            <div class="">
+            <div class="flex flex-col flex-wrap">
               <div class="flex items-center gap-2">
                 <Icon name="my-icon:live-transcript" size="24"></Icon>
-                <div class="font-semibold text-[20px]">
+                <div class="font-semibold text-[20px] text-nowrap">
                   Live Transcript
                 </div>
               </div>
@@ -269,7 +269,7 @@ const userDetails = computed(() => {
       <!-- {{ labels }} -->
       <!-- Labels column -->
       <div class="flex flex-col gap-4 bg-slate-50 p-6 rounded-lg">
-        <div class="bg-white rounded-lg p-6 h-full overflow-y-auto max-h-[70vh]">
+        <div class="bg-white rounded-lg p-6 h-full overflow-y-auto ">
           <div class=" mb-4">
             <div class="flex items-center gap-2">
               <Icon name="my-icon:ai" size="24"></Icon>
