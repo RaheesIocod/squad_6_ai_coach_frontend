@@ -37,9 +37,10 @@ const metrics = {
     fillerWords: 2,
     totalWords: 200
 }
-
+const loading = ref(false)
 async function exportReport() {
     try {
+        loading.value = true
         const response = await $fetch(`${config.public.apiBaseUrl}/responses/export?format=pdf`, {
             method: 'GET',
             headers: {
@@ -62,6 +63,8 @@ async function exportReport() {
         document.body.removeChild(a)
     } catch (error) {
         console.error('Failed to export report:', error)
+    } finally {
+        loading.value = false
     }
 }
 
@@ -76,8 +79,9 @@ async function exportReport() {
                 <!-- <p class="text-gray-600">Handle an inbound call from a potential customer asking about your product
                     features and pricing.</p> -->
             </div>
-            <button @click="exportReport" class="bg-custom rounded text-white px-6 py-2">
+            <button :disabled="loading" @click="exportReport" class="bg-custom rounded text-white px-6 py-2">
                 Export Report
+                <icon name="lucide:loader" v-if="loading" class="ml-2 animate-spin"></icon>
             </button>
         </div>
 
@@ -103,7 +107,7 @@ async function exportReport() {
                         <div class="flex justify-between text-sm">
                             <span class="text-gray-600">Objection Handling Efficiency</span>
                             <span class="text-gray-900">{{ responseData?.data?.metrics?.objection_handling_efficiency
-                                }}%</span>
+                            }}%</span>
                         </div>
                         <div class="h-2 bg-gray-100 rounded-full">
                             <div class="h-full bg-purple-600 rounded-full"
@@ -116,7 +120,7 @@ async function exportReport() {
                         <div class="flex justify-between text-sm">
                             <span class="text-gray-600">Conversion Probability</span>
                             <span class="text-gray-900">{{ responseData?.data?.metrics?.conversion_probability
-                                }}%</span>
+                            }}%</span>
                         </div>
                         <div class="h-2 bg-gray-100 rounded-full">
                             <div class="h-full bg-blue-600 rounded-full"

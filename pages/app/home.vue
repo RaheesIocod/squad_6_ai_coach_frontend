@@ -14,14 +14,14 @@ const isConnected = ref(false)
 const isRecording = ref(false)
 const transcription = ref('')
 const transcriptions = ref([]) // Add this new ref for storing all transcriptions
-// const labels = ref<any[]>(
-//   [
-//     { "speaker": "Rep", "text": "Hello. This is Sam from easy find. I just got your inquiry", "time": "7:09:36 AM" }, { "speaker": "Unknown", "text": "Yes, Sam. This is John. I just need to know the", "time": "7:09:42 AM" },
-//     { "speaker": "Prospect", "text": "pricing of Easyfy. So could you explain that here?", "prospect": true, "suggestion": "Easify offers four pricing plans: \n\n1. **Basic**: $49/month - includes 4,500 credits, 1 phone number, and 5 sub-accounts.\n2. **Premium**: $99/month - includes 11,000 credits, 2 phone numbers, and 10 sub-accounts (most popular).\n3. **Enterprise**: $199/month - includes 25,000 credits, 2 phone numbers, and 15 sub-accounts.\n4. **Custom Plan**: Tailored to specific business needs.\n\nAll plans come with a 7-day free trial, no credit card required, and no hidden charges.", "time": "7:09:49 AM" },
-//     { "speaker": "Prospect", "text": "pricing of Easyfy. So could you explain that here?", "prospect": true, "suggestion": "Easify offers four pricing plans: \n\n1. **Basic**: $49/month - includes 4,500 credits, 1 phone number, and 5 sub-accounts.\n2. **Premium**: $99/month - includes 11,000 credits, 2 phone numbers, and 10 sub-accounts (most popular).\n3. **Enterprise**: $199/month - includes 25,000 credits, 2 phone numbers, and 15 sub-accounts.\n4. **Custom Plan**: Tailored to specific business needs.\n\nAll plans come with a 7-day free trial, no credit card required, and no hidden charges.", "time": "7:09:49 AM" }
-//   ]
-// )
-const labels = ref<any[]>([])
+const labels = ref<any[]>(
+  [
+    { "speaker": "Rep", "text": "Hello. This is Sam from easy find. I just got your inquiry", "time": "7:09:36 AM" }, { "speaker": "Unknown", "text": "Yes, Sam. This is John. I just need to know the", "time": "7:09:42 AM" },
+    { "speaker": "Prospect", "text": "pricing of Easyfy. So could you explain that here?", "prospect": true, "suggestion": "Easify offers four pricing plans: \n\n1. **Basic**: $49/month - includes 4,500 credits, 1 phone number, and 5 sub-accounts.\n2. **Premium**: $99/month - includes 11,000 credits, 2 phone numbers, and 10 sub-accounts (most popular).\n3. **Enterprise**: $199/month - includes 25,000 credits, 2 phone numbers, and 15 sub-accounts.\n4. **Custom Plan**: Tailored to specific business needs.\n\nAll plans come with a 7-day free trial, no credit card required, and no hidden charges.", "time": "7:09:49 AM" },
+    { "speaker": "Prospect", "text": "pricing of Easyfy. So could you explain that here?", "prospect": true, "suggestion": "Easify offers four pricing plans: \n\n1. **Basic**: $49/month - includes 4,500 credits, 1 phone number, and 5 sub-accounts.\n2. **Premium**: $99/month - includes 11,000 credits, 2 phone numbers, and 10 sub-accounts (most popular).\n3. **Enterprise**: $199/month - includes 25,000 credits, 2 phone numbers, and 15 sub-accounts.\n4. **Custom Plan**: Tailored to specific business needs.\n\nAll plans come with a 7-day free trial, no credit card required, and no hidden charges.", "time": "7:09:49 AM" }
+  ]
+)
+// const labels = ref<any[]>([])
 const ws = ref<WebSocket | null>(null)
 const mediaRecorder = ref<MediaRecorder | null>(null)
 const config = useRuntimeConfig()
@@ -290,8 +290,8 @@ const userDetails = computed(() => {
 
               <div class="flex-1 text-sm space-y-1">
                 <p class="text-gray-700">{{ label.text }}</p>
-                <p v-if="label.suggestion" class=" text-black italic ">
-                  Suggested response: {{ label.suggestion }}
+                <p v-if="label.suggestion" class=" text-black mt-1 font-medium">
+                  {{ label.suggestion }}
                 </p>
               </div>
             </div>
