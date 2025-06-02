@@ -110,7 +110,9 @@ const state = useStorage<{ data: any[] }>('call-info-state', { data: [] })
 
 const cookie = useCookie('token')
 const token = cookie.value
+const loading = ref(false)
 function GoToCallInfo() {
+  loading.value = true
 
   // Navigate to the call info page
   // state.value.data = labels.value
@@ -133,6 +135,8 @@ function GoToCallInfo() {
     })
     .catch((error) => {
       console.error('Error saving call info:', error)
+    }).finally(() => {
+      loading.value = false
     })
 }
 
@@ -238,15 +242,16 @@ const userDetails = computed(() => {
                 Real-time conversation
               </div>
             </div>
-            <Button :class="`px-4 py-2 rounded-lg cursor-pointer ${isRecording ? 'bg-red-500 hover:bg-red-500/80' : 'bg-custom'
+            <Button :disabled="loading" :class="`px-4 py-2 rounded-lg cursor-pointer ${(isRecording || loading) ? 'bg-red-500 hover:bg-red-500/80' : 'bg-custom'
               } text-white !font-normal rounded`" @click="toggleRecording">
-              {{ isRecording ? 'Stop sensAi Agent' : ' Start sensAi Agent' }}
+              {{ (isRecording || loading) ? 'Stop sensAi' : ' Start sensAi' }}
+              <Icon v-if="loading" name="lucide:loader" class="animate-spin"></Icon>
             </Button>
           </div>
 
           <!-- Transcription output -->
           <div class="mt-6 rounded-lg overflow-y-auto">
-            <div v-for="(label, index) in labels" :key="index" class="mb-4">
+            <div v-for="(label, index) in [...labels].reverse()" :key="index" class="mb-4">
               <div class="flex items-center gap-x-4 bg-[#F1F5F9] p-3 rounded-lg">
                 <div class="space-y-1">
                   <div :class="label.speaker === 'Prospect' ? 'bg-gray-300 text-black' : 'bg-black text-white'"
@@ -258,9 +263,6 @@ const userDetails = computed(() => {
                   </div>
                 </div>
                 <p class="text-sm">{{ label.text }}</p>
-                <!-- <p v-if="label.suggestion" class="ml-4 text-green-600 italic">
-                Suggested response: {{ label.suggestion }}
-              </p> -->
               </div>
             </div>
           </div>
@@ -269,7 +271,7 @@ const userDetails = computed(() => {
       <!-- {{ labels }} -->
       <!-- Labels column -->
       <div class="flex flex-col gap-4 bg-slate-50 p-6 rounded-lg">
-        <div class="bg-white rounded-lg p-6 h-full overflow-y-auto ">
+        <div class="bg-white rounded-lg p-6 h-full max-h-[85vh] overflow-y-auto ">
           <div class=" mb-4">
             <div class="flex items-center gap-2">
               <Icon name="my-icon:ai" size="24"></Icon>
